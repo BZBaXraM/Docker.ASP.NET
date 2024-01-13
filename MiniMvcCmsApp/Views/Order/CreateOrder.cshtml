@@ -1,0 +1,43 @@
+@model  MiniMvcCmsApp.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "";
+    Layout = "_Layout";
+}
+
+<div>
+
+    <form asp-action="CreateOrder">
+        <p>
+            <label asp-for="Name">Name:</label>
+            <input type="text" id="name" name="name" required/>
+        </p>
+        <p>
+            <label asp-for="Surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required/>
+        </p>
+        <p>
+            <label asp-for="Phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required/>
+        </p>
+        <p>
+            <label asp-for="Address">Address:</label>
+            <input type="text" id="address" name="address" required/>
+        </p>
+        <p>
+            <label asp-for="Order">What do you want to order? </label>
+            <input type="text" id="order" name="order" required/>
+        </p>
+        <p>
+            <label asp-for="Count">How many? </label>
+            <input type="number" id="count" name="count" required/>
+        </p>
+        <p>
+            <label asp-for="Notes">Notes: </label>
+            <input type="text" id="notes" name="notes"/>
+        </p>
+        <p>
+            <input type="submit" value="Order"/>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+﻿version: '3'
+
+networks:
+  dev-network:
+    driver: bridge
+
+services:
+  minimvccmsapp:
+    image: mini-mvc-cms-app
+    build:
+      context: .
+      dockerfile: MiniMvcCmsApp/Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=psql;Database=CmsDB;Username=postgres;Password=toor
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      - ./MiniMvcCmsApp:/minimvccmsapp
+      - ./MiniMvcCmsApp/obj/Docker/publish:/minimvccmsapp
+      - ./MiniMvcCmsApp/wwwroot:/minimvccmsapp/wwwroot
+      - ./MiniMvcCmsApp/Views:/minimvccmsapp/Views
+    networks:
+      - dev-network
+    depends_on:
+      - psql
+  psql:
+    image: postgres:latest
+    container_name: "psql"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: CmsDB
+    restart:
+      always
+    volumes:
+      - ./psql-data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+
+
+volumes:
+  psql-data:

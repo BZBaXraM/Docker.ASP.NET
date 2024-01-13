@@ -1,0 +1,48 @@
+@model IEnumerable<MiniMvcCmsApp.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "_Layout";
+}
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Order</th>
+            <th>Count</th>
+            <th>Note</th>
+            <th>Is Delivered</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            if (order != null)
+            {
+                <tr>
+                    <td>@order.Name</td>
+                    <td>@order.Surname</td>
+                    <td>@order.Phone</td>
+                    <td>@order.Address</td>
+                    <td>@order.Order</td>
+                    <td>@order.Count</td>
+                    <td>@order.Notes</td>
+                    <td>
+                        <input type="checkbox" disabled="disabled" @(order.IsDelivered ? "checked" : "")/>
+                    </td>
+                    <td>
+                        <a asp-action="DeleteOrder" asp-route-id="@order.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
